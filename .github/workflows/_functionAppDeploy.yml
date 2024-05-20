@@ -43,14 +43,14 @@ jobs:
         with:
           python-version: '${{ inputs.python_version }}'
 
-      - name: 'Resolve Project Dependencies Using Pip'
-        id: python_dependancies
-        shell: bash
-        run: |
-          pushd '${{ inputs.function_directory }}'
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
-          popd
+      # - name: 'Resolve Project Dependencies Using Pip'
+      #   id: python_dependancies
+      #   shell: bash
+      #   run: |
+      #     pushd '${{ inputs.function_directory }}'
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+      #     popd
 
       - name: 'Az CLI login'
         uses: azure/login@v1
