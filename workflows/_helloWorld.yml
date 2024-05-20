@@ -1,0 +1,19 @@
+name: Function App Deploy
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+
+jobs:
+  greeting:
+    name: Greet user
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Group of log lines
+        run: |
+            echo '${{ inputs.python_version }}'
