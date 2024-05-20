@@ -1,4 +1,4 @@
-name: Reusable workflow example
+name: Greeting Workflow
 
 on:
   workflow_call:
@@ -8,10 +8,8 @@ on:
         type: string
 
 jobs:
-  greeting:
+  greet:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a multi-line script
-        run: |
-          echo "Hello, ${{ github.event.inputs.name }}" 
-          echo "Goodbye!"
+      - name: Print Greeting
+        run: echo "Hello, ${{ inputs.name }}!"
