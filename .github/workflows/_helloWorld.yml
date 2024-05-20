@@ -1,4 +1,4 @@
-name: Function App Deploy
+name: Hello World!
 
 on:
   workflow_call:
@@ -14,6 +14,5 @@ jobs:
     continue-on-error: true
 
     steps:
-      - name: Group of log lines
-        run: |
-            echo '${{ inputs.python_version }}'
+      - name: Run a one-line script
+        run: echo Hello, '${{ inputs.name }}'!
