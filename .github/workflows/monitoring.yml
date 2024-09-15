@@ -1,0 +1,66 @@
+name: Monitoring of Failed Managed Private Endpoints
+
+on:
+  workflow_call:
+    inputs:
+      script_path:
+        required: false
+        type: string
+        default: "./scripts/init.sh"
+      environment:
+        required: true
+        type: string
+        default: "dev"
+        description: "Specifies the environment of the deployment."
+      oe_name:
+        required: true
+        type: string
+        description: "Specifies the name of the operating entity."
+    # secrets:
+    #   TENANT_ID:
+    #     required: true
+    #     description: "Specifies the tenant id of the deployment."
+    #   CLIENT_ID:
+    #     required: true
+    #     description: "Specifies the client id."
+    #   CLIENT_SECRET:
+    #     required: true
+    #     description: "Specifies the client secret."
+    #   PAT:
+    #     required: true
+    #     description: "Specifies the GitHub PAT."
+    #   DYNATRACE_PASSWORD:
+    #     required: false
+    #     description: "Specifies the Dynatrace API Password for functions to push alerts."
+    #   ORG_GITHUB_TOKEN:
+    #     required: false
+    #     description: "Specifies the GitHub token from ORG level."
+
+jobs:
+  check_managed_private_endpoint:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      # Check Out Repository
+      - name: Check Out Repository
+        id: checkout_repository
+        uses: actions/checkout@v4
+
+      # az login
+
+      - name: Run Bash Script
+        run: bash ${{ inputs.script_path }}
+
+
+      # Cleanup Temporary Files
+      - name: Cleanup Temporary Files
+        run: |
+          echo "Cleaning the GITHUB_WORKSPACE folder $GITHUB_WORKSPACE"
+          echo "Files before clean-up:"
+          ls -alt $GITHUB_WORKSPACE
+          rm -rf $GITHUB_WORKSPACE/* || true
+          rm -rf $GITHUB_WORKSPACE/.??* || true
+          echo "Files after clean-up:"
+          ls -alt $GITHUB_WORKSPACE
+          
+      # az logout
